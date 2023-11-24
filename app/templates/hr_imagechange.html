@@ -1,0 +1,132 @@
+{%extends 'hr_index.html'%} {% load static %} {% block content %}
+
+<style>
+    #choose::file-selector-button {
+        background-color: rgb(37, 125, 207);
+
+
+    }
+</style>
+{% for mem in mem %}
+<div class="row">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 grid-margin">
+        <div class="card mt-3 mb-5">
+            <div class="card-body">
+                <form class="form-sample">
+                    <div class="row">
+                        <div class="col-8 col-sm-8 col-md-10 col-lg-10 mt-3">
+                            <h4 class="card-description"> Personal Information </h4>
+                        </div>
+                        <div class="col-4 col-sm-4 col-md-2 col-lg-2">
+                            <img src="{{mem.image.url}}" id="image" class="img-fluid rounded-circle mb-3 " alt="image"
+                                style="margin-right:20px;height:100px; width:100px;" data-toggle="modal"
+                                data-target="#myModal{{mem.id}}">
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                            <div class="form-group row">
+                                <label class="col-6 col-sm-6 col-md-6 col-lg-6 col-form-label">Full Name:</label>
+                                <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+                                    <p class="mt-2">{{mem.fullname}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                            <div class="form-group row">
+                                <label class="col-6 col-sm-6 col-md-6 col-lg-6 col-form-label">Email:</label>
+                                <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+                                    <p class="mt-2">{{mem.email}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                            <div class="form-group row">
+                                <label class="col-6 col-sm-6 col-md-6 col-lg-6 col-form-label">Contact No:</label>
+                                <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+                                    <p class="mt-2">{{mem.contact_no}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                            <div class="form-group row">
+                                <label class="col-6 col-sm-6 col-md-6 col-lg-6 col-form-label">Category:</label>
+                                <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+                                    <p class="mt-2">{{mem.designation.designation}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                       
+
+                </form>
+            </div>
+        </div>
+    </div>
+{% endfor  %}
+{%for mem in mem      %}
+<form method="post" action="{% url 'imagechange' mem.id %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="modal" id="myModal{{mem.id}}">
+            <div class="modal-dialog">
+                <div
+                    class="col-12 col-sm-12 col-md-12 col-lg-12 grid-margin stretch-card bg-dark text-light modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Profile picture</h4>
+                        <button type="button" style="color: white;" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+
+                        <div class="card" style="height:auto;">
+                            <div class="card-body">
+                                <p> A picture helps people recognize you and lets you know when you’re signed in to your
+                                    account </p>
+                                <hr>
+
+                                <div class="row pt-4">
+                                    <div class="col-3 col-sm-4 col-md-4 col-lg-4 "></div>
+                                    <div class="col-9 col-sm-8 col-md-8 col-lg-8">
+                                        <img src="{{mem.image.url}}" id="image" class="img-fluid rounded-circle mb-3 "
+                                            alt="image" style="height:100px; width:100px; ">
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer justify-content-between">
+
+
+                        <button type="submit" class="btn btn-outline-primary btn-icon-text"
+                            style="width:220px;overflow:hidden  ">
+                            <input type="file" id="choose" name="filename"></button>
+
+                        <button type="submit" class="btn btn-outline-success btn-icon-text" style="width:190px; ">
+                            <i class="mdi  mdi-reload text-success " style="font-size:18px; "></i>Update</button>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+    {% endfor  %}
+    <!-- modal end -->
+
+
+{% endblock %}

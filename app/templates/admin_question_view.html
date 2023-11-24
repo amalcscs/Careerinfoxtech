@@ -1,0 +1,47 @@
+{% extends 'admin_index.html' %} {% load static %} {% block content %}
+
+
+<div class="row" style="padding-top:20px;">
+    {% for i in cat %}
+    <div class="col-12 col-sm-6 col-md-6 col-lg-6 grid-margin">
+        <div class="card">
+            <a href="/admin_question_view_dep/{{i.id}}/" style="text-decoration: none; color: white;">
+                <div class="card-body">
+                    <h3>{{i.name}}</h3>
+                    <div class="row">
+                        <div class="col-8 col-sm-12 col-xl-8 my-auto">
+                            <div class="d-flex d-sm-block d-md-flex align-items-center">
+                                <h4 class="mb-0">count &nbsp;:&nbsp; {{i.no_of_question}}</h4>
+                            </div>
+                        </div>
+                        <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
+                            <i class="icon-lg mdi mdi-clipboard-check text-success ms-auto"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    {% endfor %} {% for i in cat1 %}
+    <div class="col-12 col-sm-6 col-md-6 col-lg-6 grid-margin">
+        <div class="card">
+            <a href="/view_questionss/{{i.id}}/" style="text-decoration: none; color: white;">
+                <div class="card-body">
+                    <h3>{{i.name}}</h3>
+                    <div class="row">
+                        <div class="col-8 col-sm-12 col-xl-8 my-auto">
+                            <div class="d-flex d-sm-block d-md-flex align-items-center">
+                                <h4 class="mb-0">count &nbsp;:&nbsp;{{i.no_of_question}}</h4>
+                            </div>
+                        </div>
+                        <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
+                            <i class="icon-lg mdi mdi-clipboard-check text-success ms-auto"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

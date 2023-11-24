@@ -1,0 +1,71 @@
+{%extends 'admin_index.html'%} {% load static %} {% block content %}
+<style>
+    #hidden_div {
+        display: none;
+    }
+</style>
+
+<div class="row" style="padding-top:20px; ">
+    <div class="col-12 col-sm-2 col-md-2 col-lg-2"></div>
+    <div class="col-12 col-sm-8 col-md-8 col-lg-8 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body" style="height:auto;padding-top:20px; ">
+                <br>
+                <center>
+                    <h3 class="card-title">Add Department</h3>
+                </center>
+                <br>
+                <form class="forms-sample" action="/admin_add_department/" method="post" autocomplete="off">
+                    {% csrf_token %}
+                    <div class="form-group row">
+                        <label for="exampleInputEmail2" class="col-4 col-sm-4 col-md-4 col-lg-4 col-form-label">Select Category</label>
+                        
+                        <div class="col-8  col-sm-8 col-md-8 col-lg-8">
+                            <input type="text" class="form-control text-light" name="form_select" id="exampleInputEnddate">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="exampleInputEmail2" class="col-4 col-sm-4 col-md-4 col-lg-4 col-form-label">Description</label>
+                        <div class="col-8  col-sm-8 col-md-8 col-lg-8">
+                            <textarea class="form-control text-light" rows="30" id="" style="height: 140px" name="desc"></textarea>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row mb-3">
+                        <center>
+                            <button type="Submit" class="btn btn-outline-primary btn-icon-text"><i
+                                    class="mdi mdi-file-check btn-icon-prepend"></i>
+                                Submit </button>
+                        </center>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById("Categorysel").style.display = "none";
+
+    function myFunction() {
+        var x = document.getElementById("Category").value;
+
+        var y = "Techinical_Ability";
+        if (x == '') {
+            document.getElementById("Categorysel").style.display = "none";
+        }
+        if (x == y) {
+            document.getElementById("Categorysel").style.display = "block";
+        } else {
+            document.getElementById("Categorysel").style.display = "none";
+        }
+
+    }
+
+
+
+    function showDiv(divId, element) {
+        document.getElementById(divId).style.display = element.value == 'Techinical Ability' ? 'block' : 'none';
+    }
+</script>
+{%endblock%}

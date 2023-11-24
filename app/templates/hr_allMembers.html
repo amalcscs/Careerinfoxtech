@@ -1,0 +1,91 @@
+{%extends 'hr_index.html'%} {% load static %} {% block content %}
+
+<style>
+    .dropdown-item:hover {
+        color: #f4f4f8;
+    }
+
+    td,
+    th {
+        text-align: center;
+    }
+</style>
+
+<div class="row">
+
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">All Members</h4>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                <form>
+                    <div class="input-group input-group-sm mb-3">
+                        <input type="text" class="form-control text-white" id="myInput" onkeyup="myFunction()"
+                            placeholder="Search . . ." style="border: green" />
+                    </div>
+                </form>
+            </div>
+            <div class="table-responsive">
+                <table class="table" id="myTable">
+                    <thead>
+                        <tr>
+                            <th class="text-white " style="padding-left:20px;">SNo</th>
+                            <!-- <th></th> -->
+                            <th class="text-white">Name</th>
+                            <th class="text-white">Email</th>
+                            <th class="text-white">contact</th>                           
+                            <th class="text-white">Mark</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in m %}
+                        <tr>
+                            <td>
+                                {{forloop.counter}}
+                            </td>
+                            <!-- <td >                               
+                                </td> -->
+                            <td>
+                              {{i.username}}
+                            </td>
+                            <td >{{i.email}}</td>
+                            <td >
+                                {{i.contact_no}}
+                            </td >
+                            <td>
+                               {{i.mark}}
+                            </td>
+                        </tr>
+                            
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+
+    function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+{% endblock %}

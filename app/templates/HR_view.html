@@ -1,0 +1,191 @@
+{%extends 'admin_index.html'%} {% load static %} {% block content %}
+
+<style>
+    .dropdown-item:hover {
+        color: #f4f4f8;
+    }
+    
+    td,
+    th {
+        text-align: center;
+    }
+</style>
+
+
+<div class="row">
+    
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">HR View</h4>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                    <form>
+                        <div class="input-group input-group-sm mb-3">
+                            <input type="text" class="form-control text-white" id="myInput" onkeyup="myFunction()" placeholder="Search . . ." style="border: green" />
+                        </div>
+                    </form>
+                </div>
+                <div class="table-responsive">
+                    <table class="table" id="myTable">
+                        <thead>
+                            <tr>
+                                <th class="text-white" style="padding-left:20px;">SNo</th>
+                                <th class="text-white">Name</th>
+                                <th class="text-white">Email</th>
+                                <th class="text-white">Contact</th>
+                                <th class="text-white">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in m %}
+                            <tr>
+                                <td>
+                                    <a href="/admin_allMembers_category/{{i.id}}/" style="text-decoration:none; color:inherit">
+                                    {{forloop.counter}}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="/admin_allMembers_category/{{i.id}}/" style="text-decoration:none;color:inherit" >
+                                    {{i.fullname}}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="/admin_allMembers_category/{{i.id}}/" style="text-decoration:none;color:inherit">
+                                    {{i.email}}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="/admin_allMembers_category/{{i.id}}/" style="text-decoration:none;color:inherit">
+                                   {{i.contact_no}}
+                                   </a>
+                                </td>
+                                <td>
+                                    <a href="tel:{{ i.contact_no }}"  class="btn btn-social-icon-text btn-outline-success"><i class="mdi mdi-autorenew"></i>Call</a>
+                                    <button type="button" data-toggle="modal" data-target="#myModal{{i.id}}" class="btn btn-social-icon-text btn-outline-primary"><i class="mdi mdi-tooltip-edit"></i>Update</button>
+                                    &nbsp;<a href="/HR_view_delete/{{i.id}}"onclick="return confirm('Are you sure you want to delete this')"><button type="submit" class="btn btn-social-icon-text btn-outline-danger"
+                                        ><i class="mdi mdi-delete-forever"></i>Delete</button></a>  
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    
+</div>
+
+{% for i in m %}
+<!-- Modal -->
+<div class="modal" id="myModal{{i.id}}">
+    <div class="modal-dialog">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 grid-margin stretch-card bg-dark text-light modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button type="button" style="color: white;" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body" style="height:auto;padding-top:20px; ">
+                        <br>
+                        <center>
+                            <h3 class="card-title">UPDATE</h3>
+                        </center>
+                        <br>
+                        <form method="post" action="/HR_view_update/{{i.id}}">
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <label for="exampleInputEmail2"
+                                    class="col-4 col-sm-4 col-md-4 col-lg-4 col-form-label">Name</label>
+                                <div class="col-8  col-sm-8 col-md-8 col-lg-8">
+                                    <input type="text" class="form-control text-light" name="hrname"
+                                        value="{{i.fullname}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-4 col-sm-4 col-md-4 col-lg-4">
+                                    <label class=" col-form-label">Email</label>
+                                </div>
+
+                                <div class="col-8  col-sm-8 col-md-8 col-lg-8">
+                                    <input type="text" class="form-control text-light" name="hrmail"
+                                        value="{{i.email}}">
+                                </div>
+
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-4 col-sm-4 col-md-4 col-lg-4">
+                                    <label class=" col-form-label">Contact</label>
+                                </div>
+
+                                <div class="col-8  col-sm-8 col-md-8 col-lg-8">
+                                    <input type="text" class="form-control text-light" name="hrcontact"
+                                        value="{{i.contact_no}}">
+                                </div>
+
+                            </div>                           
+                            <br>
+                            <div class="row mb-3">
+                                <center>
+                                    <button type="Submit" class="btn btn-outline-primary btn-icon-text"><i
+                                            class="mdi mdi-file-check btn-icon-prepend"></i>
+                                        Submit </button>
+                                </center>
+                            </div>
+                        </form>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+<!-- modal end -->
+{% endfor %}
+<!-- {% if msg_warning %}
+<script>
+  Swal.fire({
+    position: 'center',
+    icon: 'success',
+    text: '{{ msg_warning }}',
+    showConfirmButton: false,
+    timer: 1500
+  }).then(function () {
+    javascript: history.go(-2);
+  })
+</script>
+{% endif %} -->
+
+    <script>
+        function myFunction() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- <script>
+        $(document).ready(function() {
+        $('table tr').click(function() {
+            window.location = $(this).data('href');
+            return false;
+        });
+    });
+    </script> -->
+    {% endblock %}

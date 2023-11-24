@@ -1,0 +1,122 @@
+{%extends 'admin_index.html'%} {% load static %} {% block content %}
+
+<style>
+    .dropdown-item:hover {
+        color: #f4f4f8;
+    }
+
+    td,
+    th {
+        text-align: center;
+    }
+</style>
+
+<div class="row">
+
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Waiting List</h4>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                <form>
+                    <div class="input-group input-group-sm mb-3">
+                        <input type="text" class="form-control text-white" id="myInput"
+                            placeholder="Search . . ." style="border: green" />
+                    </div>
+                </form>
+            </div>
+            <div class="table-responsive">
+                <table class="table" >
+                    <thead>
+                        <tr>
+                            <th class="text-white " style="padding-left:20px;">SiNo</th>
+                            <!-- <th></th> -->
+                            <th class="text-white">Name</th>
+                            <th class="text-white">Email</th>
+                            <th class="text-white">contact</th>    
+                            <th class="text-white">Registration date</th>                          
+                            <th class="text-white">Department</th>                          
+                            <th class="text-white">Mark</th>
+                            <th class="text-white">action</th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="myTable">
+                        {% for i in m %}
+                        <tr>
+                            <td>
+                                {{forloop.counter}}
+                            </td>
+                            <td>
+                              {{i.fullname}}
+                            </td>
+                            <td >{{i.email}}</td>
+                            <td >
+                                {{i.contact_no}}
+                            </td >
+                            <td >
+                                {{i.regdate|date:'d-m-Y'}}
+                            </td >
+                            <td>
+                              {{i.deptmnt.name}}
+                          </td>
+                            <td>
+                               {{i.mark}}
+                            </td>
+                            <td>
+                                <form action="#" method="post">
+                                    {% csrf_token %}
+                                <button  type="submit"  class="btn btn-social-icon-text btn-outline-success"><i class="mdi mdi-emoticon"></i>Intrested</button>
+                                <button formaction="#" type="submit" class="btn btn-social-icon-text btn-outline-danger" onclick="confirmation()"><i class="mdi mdi-emoticon-dead"></i>Not Intrested</button>
+                                </form>
+                            </td>     
+                        </tr>
+                            
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+
+{% if msg_success %}
+<script>
+  Swal.fire({
+    position: 'center',
+    icon: 'success',
+    text: '{{ msg_success }}',
+    showConfirmButton: false,
+    timer: 1500
+  }).then(function () {
+    javascript: history.go(-2);
+  })
+</script>
+{% endif %}
+{% if msg_warning %}
+<script>
+  Swal.fire({
+    position: 'center',
+    icon: 'warning',
+    text: '{{ msg_warning }}',
+    showConfirmButton: false,
+    timer: 1500
+  }).then(function () {
+    javascript: history.go(-2);
+  })
+</script>
+{% endif %}
+
+{% endblock %}
+

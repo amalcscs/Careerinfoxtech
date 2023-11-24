@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Registration</title>
+  <link rel="stylesheet" href="static/assets/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="static/assets/vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="/static/assets/css/style.css">
+  <link rel="shortcut icon" href="static/assets/images/favicon.png" />
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" type="text/css" href="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.css">
+  
+  <style>
+    #choose::file-selector-button {
+      background-color: rgb(37, 125, 207);
+      padding: 12px;
+      color: white;
+      width: 100px;
+    }
+
+    .ui-widget-content {
+      border: none;
+      background: #191c24;
+      color: #636d87;
+    }
+
+    .ui-datepicker th {
+      padding: 0.7em 0.3em;
+      text-align: center;
+      font-weight: bold;
+      border: none;
+      color: white;
+    }
+
+    .ui-state-default,
+    .ui-widget-content .ui-state-default,
+    .ui-widget-header .ui-state-default,
+    .ui-button,
+    html .ui-button.ui-state-disabled:hover,
+    html .ui-button.ui-state-disabled:active {
+      border: 1px solid #636d87;
+      border-radius: 50%;
+      background: #191c24;
+      font-weight: normal;
+      color: white;
+      text-align: center;
+      font-size: 10px;
+      padding: 10px;
+
+    }
+
+    .ui-widget-header {
+      border: 1px solid #636d87;
+      background: #191c24;
+      color: white;
+      font-weight: bold;
+    }
+
+    .ui-widget.ui-widget-content {
+      border: 1px solid #636d87;
+    }
+  </style>
+</head>
+
+<body onload='document.form1.email.focus()'>
+  <div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+        
+      <div class="row w-100 m-0">
+        <div class="content-wrapper full-page-wrapper d-flex align-items-center auth login-bg">
+          <div class="card col-lg-8 col-md-6 col-sm-12 col-12 mx-auto">
+            <div class="card-body px-5 py-5">
+             
+              <h3 class="card-title text-left mb-3">Register</h3>
+              <form method="post" action="" name="form1" autocomplete="off" enctype="multipart/form-data">
+                {%csrf_token %}
+
+                <div class="form-group">
+                  <label>Fullname</label>
+                  <input type="text" name="fname" class="form-control p_input text-light" required>
+                </div>
+                <div class="form-group">
+                  <label>Email</label>
+                  <input type="email" name="email" class="form-control p_input text-light" required>
+                </div>
+             
+                <div class="form-group">
+                  <label>Contact</label>
+                  <input type="tel" maxlength="10" name="contact" class="form-control p_input text-light" required>
+                </div>
+                <div class="form-group">
+                  <label>Department</label>
+                  <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                      <select class="form-control text-light" id="ref" name="dept" required>
+                        <option selected="true" value="" style='display: none'>Select Department</option>
+                        {% for i in vars1 %}
+                        <option value="{{i.id}}">{{i.name}}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                  </div>
+                  <br>
+                <div class="form-group">
+                  <label>Reference</label>
+                  <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                     <select class="form-control text-light" id="ref" name="reference" required>
+                         <option selected="true" style='display: none'>Select</option>
+                        <option value="no reference">No reference</option>
+                        {% for i in var %}
+                        <option value="{{i.fullname}}">{{i.fullname}}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="form-group">
+                    <label>College Name</label>
+                    <input type="text" name="college" class="form-control p_input text-light" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Qualification</label>
+                    <input type="text" name="qualifcation" class="form-control p_input text-light" required>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label>Passout year</label>
+                    <input type="tel" maxlength="4" name="passoutyr" class="form-control p_input text-light" required>
+                  </div>
+                <div class="text-center ">
+                    <button type="submit" onclick="ValidateEmail(document.form1.email)" class="btn btn-primary btn-block enter-btn mt-3"
+                      style="width:100px">Register</button>
+                  </div>
+                  
+              </form>
+
+            </div>
+          </div>
+        </div>
+        <!-- content-wrapper ends -->
+      </div>
+      <!-- row ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <script>
+      function ValidateNo() {
+      var phoneNo = document.getElementById('contact');
+    
+      if (phoneNo.value.length < 10 || phoneNo.value.length > 10) {
+        alert("Mobile No. is not valid, Please Enter 10 Digit Mobile No.");
+        return false;
+      }
+      else{
+        return true;
+      }
+    
+    }
+  </script>
+  
+  {% if msg_success %}
+  <script>
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      text: '{{ msg_success }}',
+      showConfirmButton: false,
+      timer: 1500
+    }).then(function () {
+      javascript: history.go(-2);
+    })
+  </script>
+  {% endif %}
+  {% if msg_warning %}
+  <script>
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      text: '{{ msg_warning }}',
+      showConfirmButton: false,
+      timer: 1500
+    }).then(function () {
+      javascript: history.go(-1);
+    })
+  </script>
+  {% endif %}
+
+  <script >
+    
+      if (performance.navigation.type == 3) {
+          location.reload(true);
+        }
+  </script>
+  <script src="static/assets/vendors/js/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page -->
+  <!-- End plugin js for this page -->
+  <!-- inject:js -->
+  <script src="static/assets/js/off-canvas.js"></script>
+  <script src="static/assets/js/hoverable-collapse.js"></script>
+  <script src="static/assets/js/misc.js"></script>
+  <script src="static/assets/js/settings.js"></script>
+  <script src="static/assets/js/todolist.js"></script>
+  <!-- endinject -->
+</body>
+
+</html>

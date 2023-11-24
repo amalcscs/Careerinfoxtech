@@ -1,0 +1,134 @@
+{%extends 'admin_index.html'%} {% load static %} {% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('.form-check-input').click(function(){
+            var txt="";
+            $('.form-check-input:checked').each(function(){
+                txt+=$(this).val()+","
+            });
+            $('#allvalues').val(txt);
+        });
+    });
+</script>
+<style>
+    .dropdown-item:hover {
+        color: #f4f4f8;
+    }
+
+    td,
+    th {
+        text-align: left;
+    }
+</style>
+
+<div class="row">
+
+    <div class="card">
+        <div class="card-body">
+            {% for i in var %}
+            <form method="post" action="/admin_allMembers_reference/" enctype="multipart/form-data">
+                {% endfor %}
+                {%csrf_token%}
+                <h4 class="card-title row-md-6">Reference&nbsp;<select class="badge badge-outline-primary bg-dark text-muted"
+                        name="refer">
+                        {%for i in desgn%}
+                        <option style="display: none">--select--</option>
+                        <option value="{{i.fullname}}">{{i.fullname}}</option>
+                        {%endfor%}
+                    </select>
+                    <button type="submit" class="btn btn-outline-primary btn-icon-text">
+                        <i class="mdi mdi-file-check btn-icon-prepend"></i>Submit
+                    </button>
+                </h4>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="input-group input-group-sm mb-3">
+                        <input type="text" class="form-control text-white" id="myInput" 
+                            placeholder="Search . . ." style="border: green" />
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table" >
+                        <thead>
+                            <tr>
+                                <input type="hidden" name="att" id="allvalues"></label>
+                                <th>Select</th>
+                                <th class="text-white">Sl No</th>
+
+                                <th class="text-white" style="padding-right:20px;">Name</th>
+                                <th class="text-white">Email</th>
+                                <th class="text-white">Reference</th>
+                                <th class="text-white">College</th>
+                                <th class="text-white">Mark</th>
+
+                            </tr>
+                        </thead>
+                        <tbody id="myTable">
+                            {% for i in var %}
+                            <tr>
+                                <td>
+                                    <div class="form-check form-check-flat form-check-primary">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" value="{{i.id}}" class="form-check-input"></label>
+                                    </div>
+                                </td>
+                                <td>
+                                    {{forloop.counter}}
+                                </td>
+                                <!-- <td class="pl-5">                                    
+                                    <img src="{{ i.image.url }}" alt="image" />
+                                </td> -->
+                                <td class="pl-0">
+                                    {{i.fullname}}
+                                </td>
+                                <td>
+                                    {{i.email}}
+                                </td>
+
+
+                                <td>
+                                    {{i.reference}}
+                                </td>
+                                <td>
+                                    {{i.college}}
+                                </td>
+                                <!-- <td>
+                                    {% if i.reference == 'no reference' or i.reference == 'Select HR' %}
+                                    <select class="badge badge-outline-primary bg-dark text-muted" name="refer">
+                                        {%for i in desgn%}
+                                        <option style="display: none">Reference</option>
+                                        <option value="{{i.fullname}}">{{i.fullname}}</option>
+                                        {%endfor%}
+                                    </select>
+                                    <button type="submit" class="btn btn-outline-primary btn-icon-text">
+                                        <i class="mdi mdi-file-check btn-icon-prepend"></i>Submit
+                                    </button>
+                                    {% else %}
+                                    {% endif %}
+                                </td> -->
+                                <td>
+                                    {{i.mark}}
+                                </td>
+            </form>
+            </tr>
+            {% endfor %}
+
+            </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+{% endblock %}

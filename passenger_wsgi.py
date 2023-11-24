@@ -1,0 +1,1 @@
+from aptitude.wsgi import application

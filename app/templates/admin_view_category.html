@@ -1,0 +1,165 @@
+{%extends 'admin_index.html'%} {% load static %} {% block content %}
+
+<style>
+    .dropdown-item:hover {
+        color: #f4f4f8;
+    }
+    
+    td,
+    th {
+        text-align: center;
+    }
+</style>
+
+
+<div class="row">
+
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">View Category</h4>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                <form>
+                    <div class="input-group input-group-sm mb-3">
+                        <input type="text" class="form-control text-white" id="myInput" onkeyup="myFunction()" placeholder="Search . . ." style="border: green" />
+                    </div>
+                </form>
+            </div>
+            <div class="table-responsive">
+                <table class="table" id="myTable">
+                    <thead>
+                        <tr>
+                            <th class="text-white" style="padding-left:20px;">SNo</th>
+                            <th class="text-white">Category Name</th>
+                            <th class="text-white">Question Count</th>
+                            <th class="text-white">Time</th>
+                            <th class="text-white">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in z %}
+                        <tr>
+
+                            <td>
+                                {{forloop.counter}}
+                            </td>
+                            <td>
+                                {{i.name}}
+                            </td>
+                            <td>
+                                {{i.no_of_question}}
+                            </td>
+                            <td>
+                                {{i.time_taken}} &nbsp; min
+                            </td>
+                            {% if i.name == 'Technical_ability' %}
+                            <td>
+                                <button type="button" data-toggle="modal" data-target="#myModal{{i.id}}" class="btn btn-social-icon-text btn-outline-primary "style="width: 200px"><i class="mdi mdi-tooltip-edit"></i>Update</button> &nbsp;
+                            </td> {% else %}
+                            <td>
+                                <button type="button" data-toggle="modal" data-target="#myModal{{i.id}}" class="btn btn-social-icon-text btn-outline-primary"><i class="mdi mdi-tooltip-edit"></i>Update</button> &nbsp;
+                                <a href="/admin_view_delete/{{i.id}}"><button type="submit" class="btn btn-social-icon-text btn-outline-danger"
+                                        ><i class="mdi mdi-delete-forever"></i>Delete</button></a>
+                            </td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+{% for i in z %}
+<div class="modal" id="myModal{{i.id}}">
+    <div class="modal-dialog">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 grid-margin stretch-card bg-dark text-light modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button type="button" style="color: white;" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body" style="height:auto;padding-top:20px; ">
+                        <br>
+                        <center>
+                            <h3 class="card-title">UPDATE</h3>
+                        </center>
+                        <br>
+                        <form method="post" action="/admin_view_update/{{i.id}}">
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <label for="exampleInputEmail2" class="col-4 col-sm-4 col-md-4 col-lg-4 col-form-label">Category Name :</label>
+                                <div class="col-8  col-sm-8 col-md-8 col-lg-8">
+                                    <input type="text" class="form-control text-light text-center" id="exampleInputUsername2" value="{{i.name}}" name="namecat" required/>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-4 col-sm-4 col-md-4 col-lg-4">
+                                    <label class=" col-form-label">No of Questions :</label>
+                                </div>
+
+                                <div class="col-8  col-sm-8 col-md-8 col-lg-8">
+                                    <input type="text" class="form-control text-light text-center" id="exampleInputUsername2" value="{{i.no_of_question}}" name="noqstn" required/>
+                                </div>
+
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-4 col-sm-4 col-md-4 col-lg-4">
+                                    <label class=" col-form-label">Select a Time: </label>
+                                </div>
+
+                                <div class="col-8  col-sm-8 col-md-8 col-lg-8">
+                                    <input type="number" id="appt" name="cattime" value="{{i.time_taken}}" class="form-control text-light text-center" id="exampleInputUsername2" required/>
+                                </div>
+
+                            </div>
+                            <br>
+                            <div class="row mb-3">
+                                <center>
+                                    <button type="Submit" class="btn btn-outline-primary btn-icon-text"><i
+                                            class="mdi mdi-file-check btn-icon-prepend"></i>
+                                        Submit </button>
+                                </center>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+<!-- modal end -->
+
+
+
+<script>
+    function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,147 @@
+{%extends 'admin_index.html'%}
+{% load static %}
+{% block content %}
+<style>
+
+    #hidden_div {
+        display: none;
+    }
+</style>
+
+<div class="row" style="padding-top:20px; ">
+    <div class="col-12 col-sm-2 col-md-2 col-lg-2"></div>
+    <div class="col-12 col-sm-8 col-md-8 col-lg-8 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body" style="height:auto;padding-top:20px; ">
+                <br>
+                <center>
+                    <h3 class="card-title">Add Question</h3>
+                </center>
+                <br>
+
+                <form class="forms-sample" action="/add_question/" method="post" autocomplete="off">
+                    {% csrf_token %}
+
+
+                    <div class="form-group row">
+                        <label for="exampleInputEmail2"
+                            class="col-4 col-sm-4 col-md-4 col-lg-4 col-form-label">Select Category</label>
+                        <div class="col-4 col-sm-4 col-md-4 col-lg-4">
+                            <select id="test" name="form_select" onchange="showDiv('hidden_div', this)" class="badge badge-outline-primary bg-dark " >
+                                <option selected="true" style='display: none'>Select Category</option>
+                                {% for i in vars %}
+                                <option value="{{i.name}}">{{i.name}}</option>
+                                {% endfor %}
+                               
+                             </select>
+                             
+                        </div>
+
+                        
+
+
+
+
+                        <div id="hidden_div" class="col-4 col-sm-4 col-md-4 col-lg-4" >
+                            <select name="Categorysel" id="Categorysel" class="badge badge-outline-primary bg-dark " >
+                                <option selected="true" value='Default' style='display: none'>Select Department</option>                              
+                               
+                                {% for i in var %}
+                                <option value="{{i.name}}">{{i.name}}</option>
+                                {% endfor %}
+                               
+                             </select>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="form-group row">
+                        <label for="exampleInputEmail2"
+                            class="col-4 col-sm-4 col-md-4 col-lg-4 col-form-label">Question</label>
+                        <div class="col-8  col-sm-8 col-md-8 col-lg-8">
+                            <textarea class="form-control text-light" rows="30" id="" style="height: 140px"
+                                name="question"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-4 col-sm-4 col-md-4 col-lg-4">
+                            <label for="exampleInputMobile" class=" col-form-label">Option A</label>
+                        </div>
+
+                        <div class="col-8  col-sm-8 col-md-8 col-lg-8">
+                            <input type="text" class="form-control text-light" name="opt1" id="exampleInputEnddate">
+                        </div>
+
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-4 col-sm-4 col-md-4 col-lg-4">
+                            <label for="exampleInputMobile" class=" col-form-label">Option B</label>
+                        </div>
+
+                        <div class="col-8  col-sm-8 col-md-8 col-lg-8">
+                            <input type="text" class="form-control text-light" name="opt2" id="exampleInputEnddate">
+                        </div>
+
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-4 col-sm-4 col-md-4 col-lg-4">
+                            <label for="exampleInputMobile" class=" col-form-label">Option C</label>
+                        </div>
+
+                        <div class="col-8  col-sm-8 col-md-8 col-lg-8">
+                            <input type="text" class="form-control text-light" name="opt3" id="exampleInputEnddate">
+                        </div>
+
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-4 col-sm-4 col-md-4 col-lg-4">
+                            <label for="exampleInputMobile" class=" col-form-label">Option D</label>
+                        </div>
+
+                        <div class="col-8  col-sm-8 col-md-8 col-lg-8">
+                            <input type="text" class="form-control text-light" name="opt4" id="exampleInputEnddate">
+                        </div>
+
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-4 col-sm-4 col-md-4 col-lg-4">
+                            <label for="exampleInputMobile" class=" col-form-label">correct Answer</label>
+                        </div>
+
+                        <div class="col-8  col-sm-8 col-md-8 col-lg-8">
+                            <input type="text" class="form-control text-light" name="answer" id="exampleInputEnddate">
+                        </div>
+
+                    </div><br>
+
+
+                    <div class="row mb-3">
+                        <center>
+                            <button type="Submit" class="btn btn-outline-primary btn-icon-text"><i
+                                    class="mdi mdi-file-check btn-icon-prepend"></i>
+                                Submit </button>
+                        </center>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+<script >
+
+
+
+
+    function showDiv(divId, element)
+{
+    document.getElementById(divId).style.display = element.value == 'Technical_ability' ? 'block' : 'none';
+}
+    </script>
+{%endblock%}
+

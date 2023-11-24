@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INFOX CORE</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'assets/vendors/mdi/css/materialdesignicons.min.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm  navbar-dark" style="background-color: #191C24">
+        <!-- Brand/logo -->
+        <p style="color: white; opacity: 1;font-family: Rubik,sans-serif; font-size: 35px;margin-top: 3vh;">iNFOX</p>
+        <p class="ml-lg-auto ml-sm-auto"
+            style="color: white; opacity: 1;font-family: Rubik,sans-serif; font-size: 18px;margin-top: 3vh;">
+            &nbsp;Welcome&nbsp;
+            {{mem.fullname}}&nbsp;&nbsp;</p>
+        <a href="/total/" class="btn btn-primary mt-3" style="width: 180px;">Finish Test</a>
+        <!-- <a href="/" class="btn btn-danger " style="width: 70px;">Logout</a>  -->
+
+    </nav>
+
+    <div class="container-fluid" style="background-color: black;width: 100%;min-height: 100vh;">
+        <div class="row" style="padding-top:20px;">
+            {% for i in m %}
+
+            <div class="col-lg-6 col-md-6 col-sm-6 col-12 grid-margin">
+
+                <div class="card mb-3" id="hide" style="height:auto;background-color:#191C24">
+
+                    <a href="/start/{{i.id}}" style="text-decoration: none; color: white;">
+                        <div class="card-body">
+
+                            <div class="row mt-4 ml-1 " class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                <h5>{{i.name}}</h5>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-6 col-sm-6 col-md-7 col-lg-7">
+                                    <h5 class="text-justify">Question Count</h5>
+                                </div>
+                                <div class="col-6 col-sm-6 col-md-5 col-lg-4">
+                                    <h5>{{i.no_of_question}}</h5>
+                                </div>
+                            </div>
+                            <div class="row mt-0 mt-sm-0">
+                                <div class="col-6 col-sm-6 col-md-7 col-lg-7">
+                                    <h5 class="text-justify">Time</h5>
+                                </div>
+                                <div class="col-6 col-sm-6 col-md-5 col-lg-5">
+                                    <h5>{{i.time_taken}}&nbsp;Minutes&nbsp;<i
+                                            class="icon-sm mdi mdi-timer text-danger ms-auto"></i></h5>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+
+
+            {% endfor %}
+
+        </div>
+    </div>
+    <script>
+        if (performance.navigation.type == 3) {
+            location.reload(true);
+        }
+
+    </script>
+    <!-- {% if msg_warning %}
+    <script>
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            text: '{{ msg_warning }}',
+            showConfirmButton: false,
+            timer: 1500
+        }).then(function () {
+            javascript: history.go(-2);
+        })
+    </script>
+    {% endif %} -->
+    {% if msg_succ %}
+    <script>
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            text: '{{ msg_succ }}',
+            showConfirmButton: false,
+            timer: 5000
+        }).then(function () {
+            window.location.href = "{% url 'reqflush' %}";
+        })
+    </script>
+    {% endif %}
+   
+
+</body>
+
+</html>

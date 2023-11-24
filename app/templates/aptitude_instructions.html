@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INFOX CORE</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm  navbar-dark" style="background-color: #191C24">
+        <!-- Brand/logo -->
+        <p style="color: white; opacity: 1;font-family: Rubik,sans-serif; font-size: 35px;margin-top: 3vh;">iNFOX</p>
+        <p class="ml-lg-auto ml-sm-auto"
+            style="color: white; opacity: 1;font-family: Rubik,sans-serif; font-size: 27px;margin-top: 3vh;">
+            &nbsp;Welcome&nbsp;
+            {{mem.fullname}}&nbsp;&nbsp;</p>
+            <!-- <a href="/" class="btn btn-danger " style="width: 70px;">Logout</a>  -->
+            
+    </nav>
+    <div class="container-fluid" style="background-color: black;width: 100%;min-height: 100vh;">
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-2 col-lg-3"></div>
+            <div class="col-12 col-sm-12 col-md-8 col-lg-6  grid-margin">
+                <div class="card " style="background-color: #191C24;margin-top: 80px;">
+                    <div class="card-body text-light" style="font-family: Rubik,sans-serif;">
+                        <center>
+                            <h4 style="font-size: 18px;">INSTRUCTIONS</h4>
+                            <p style="font-size: 17px;">Welcome To Online Exam for General Aptitude Test</p>
+                        </center><br>
+                        <div class="row">
+                            <div class="col-lg-1"></div>
+                            <div class="col-lg-10">
+                                <P>1) Don't refresh the browser until the exam is completed  </P>
+                                <P>2) Total Time for Exam is {{sn}} Minutes </P>
+                                <P>3) No Negative Marking </P>
+                                <P>4) The countdown timer displayed on the test screen will indicate the time remaining
+                                </P>
+                                <P>5) To save your answer,You must click on the submit button </P>
+                                
+
+                                <div class="row mt-5">
+                                    <div class="col-4 col-sm-5 col-md-5 col-lg-5"></div>
+                                    <div class="col-8 col-sm-6 col-md-6 col-lg-6">
+                                        <a href="/aptitude_catagory/" class="btn btn-primary "
+                                            style="width: 100px;">Start</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

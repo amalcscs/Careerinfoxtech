@@ -1,0 +1,147 @@
+{%extends 'hr_index.html'%} {% load static %} {% block content %}
+
+<style>
+    .dropdown-item:hover {
+        color: #f4f4f8;
+    }
+
+    td,
+    th {
+        text-align: center;
+    }
+</style>
+
+<div class="row">
+
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Contacted List</h4>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                <form>
+                    <div class="input-group input-group-sm mb-3">
+                        <input type="text" class="form-control text-white" id="myInput"
+                            placeholder="Search . . ." style="border: green" />
+                    </div>
+                </form>
+            </div>
+            <div class="table-responsive">
+                <table class="table" >
+                    <thead>
+                        <tr>
+                            <th class="text-white " style="padding-left:20px;">SiNo</th>
+                            <!-- <th></th> -->
+                            <th class="text-white">Name</th>
+                            <th class="text-white">Email</th>
+                            <th class="text-white">contact</th>  
+                            <th class="text-white">College</th>  
+                            <th class="text-white">Registration Date</th>                         
+                            <th class="text-white">Department</th>                         
+                            <th class="text-white">Mark</th>
+                            <th class="text-white">action</th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="myTable">
+                        {% if m %}
+                        {% for i in m %}
+                        
+                        <tr>
+                            <td>
+                                {{forloop.counter}}
+                            </td>
+                            <!-- <td >                               
+                                </td> -->
+                            <td>
+                              {{i.fullname}}
+                            </td>
+                            <td >{{i.email}}</td>
+                            <td >
+                                {{i.contact_no}}
+                            </td >
+                            <td >
+                                {{i.college}}
+                            </td >
+                            <td >
+                                {{i.regdate|date:"d-m-Y"}}
+                            </td >
+                            <td>
+                                {{i.deptmnt.name}}
+                             </td>
+                            <td>
+                               {{i.mark}}
+                            </td>
+                            <td>
+                               
+                                <a href="/replaysaveintrest/?tid={{i.id}}" class="btn btn-outline-success btn-icon-text" >
+                                    <i class="mdi mdi-emoticon btn-icon-prepend"></i> Intrested
+                                </a>
+                                <a href="/replaysavenotintrest/?tid={{i.id}}" class="btn btn-outline-danger btn-icon-text" >
+                                    <i class="mdi mdi-emoticon-dead btn-icon-prepend"></i> Not Intrested
+                                </a>
+                                <a href="/replaysavewaiting/?tid={{i.id}}" class="btn btn-outline-info btn-icon-text" >
+                                    <i class="mdi mdi-emoticon-dead btn-icon-prepend"></i> Waiting
+                                </a>
+                                
+                            </td>     
+                        </tr>
+                         
+                        {% endfor %}
+                        {% else %}
+                        <h5>Nothing to display...</h5>
+                        {% endif %}
+                        
+                        
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+    {% if msg_success %}
+      <script>
+         Swal.fire({
+         position: 'center',
+         icon: 'success',
+         text: '{{ msg_success }}',
+         showConfirmButton: false,
+         timer: 1500
+        }).then(function () {
+          javascript: history.go(-2);
+        })
+     </script>
+   {% endif %}
+
+   {% if msg_successs %}
+      <script>
+         Swal.fire({
+         position: 'center',
+         icon: 'success',
+         text: '{{ msg_successs }}',
+         showConfirmButton: false,
+         timer: 1500
+        }).then(function () {
+          javascript: history.go(-2);
+        })
+     </script>
+   {% endif %}
+
+
+
+
+
+
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+
+{% endblock %}
+

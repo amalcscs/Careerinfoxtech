@@ -1,0 +1,76 @@
+{%extends 'admin_index.html'%} {% load static %} {% block content %}
+<style>
+    .dropdown-item:hover {
+        color: #f4f4f8;
+    }
+
+    #choose::file-selector-button {
+          background-color: rgb(37, 125, 207);
+          padding: 12px;
+          color: white;
+          width: 100px;
+    }
+</style>
+
+<div class="row mt-4">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8">
+  <form action="/admin_add_limit/" method="post" autocomplete="off" enctype="multipart/form-data">
+    {%csrf_token%}
+    
+        <div class="card" style="height: auto">
+            <div class="card-body">
+              
+                
+          
+          <br />
+          <div class="form-group row">
+            <label class="col-12 col-sm-4 col-md-4 col-lg-4 ml-3 " for="exampleInputUsername2" class="col-sm-3 col-form-label"required > No of Questions :</label
+            >
+            <div class="col-sm-6">
+              <input type="text" class="form-control text-light text-center"id="exampleInputUsername2" name="noqstn"required/>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-12 col-sm-4 col-md-4 col-lg-4 ml-3 " for="appt" class="col-sm-3 col-form-label"required >Select a Time: :</label
+            >
+            <div class="col-sm-6">
+              <input type="number"  id="appt" name="appt"class="form-control text-light text-center"id="exampleInputUsername2" required/>
+            </div>
+          </div>
+          
+          
+         
+          
+
+
+
+          <br />
+          <div class="row">
+            
+              
+              <center><button type="Submit" class="btn btn-outline-primary btn-icon-text ">
+                <i class="mdi mdi-file-check btn-icon-prepend"></i>
+                Submit
+              </button></center>
+            
+          </div>
+        </div>
+      
+    </div>
+    {%if msg%}
+    <h5 style="text-align:center">{{msg}}</h5>
+    {%endif%}
+  </form>
+  </div>
+
+<script>
+  //js for submit button in new_team.html page
+  function redirect() {
+      window.location.href = "";
+  }
+ 
+  
+</script>
+
+{%endblock%}
